@@ -1,66 +1,8 @@
 \section{Data}
 % The data used for in-silico experiments are relative RNA expression levels describing how transcription levels are affected by different experimental conditions of gene manipulation, such as gene deletions (knockouts). Protein-protein interaction data is also used describing direct protein regulation, as well as protein-DNA interaction describing transcriptional control.
 
-
-\input{data/dream.tex}
 \input{data/RNA_levels.tex}
 \input{data/tf_edges.tex}
 % \input{data/pk_edges.tex}
 
-
-\begin{frame}{Preprocessing}
-\label{sec:data_preprocess}
-\begin{columns}
-\begin{column}{0.5\textwidth}
-
-% All protein-DNA interactions were used as TF edges by matching the source of interaction against the 266 TF knocked out in experiments and the target against the 5881 measured genes. The result is a masking matrix, such that
-
-Constrain to known TF edges
-\begin{equation}     W^* = W \odot M
-\end{equation}
-
-% where $\odot$ is the Hadamard product~(element-wise), and masking matrix $M$ contains ones and zeros, with ones for each known TF interaction, for any PK to PK edges, and PK to TF edges. $W^*$ is the masked version of $W$ from~\autoref{eq:basic_eberhardt_extension}. $W$ holds the parameters that will be optimized in minimization of $\boldsymbol{e}$. A second matrix $S$ is created to control the signs of TF$\rightarrow$gene interactions. The matrix holds 1s for known positive interaction, -1s for known negative interactions and 0s for the remaining entries with the counts of positives and negatives described in~\autoref{tab:yeastract}. A new weight matrix where signs are controlled is then calculated as
-Constraints on TF sign
-\begin{subequations}
-\begin{align}
-W^{**} &= W^* \odot S^{(0)} + |W^*| \odot S
-\\
-s^{(0)}_{ij} &=
-\begin{cases}
-  1,
-  & \text{if}\ s_{ij} = 0 \\
-  0,
-  & \text{otherwise}
-\end{cases}
-\end{align}
-\end{subequations}
-% Where $W^{**}$ is the new weight matrix used in place of $W$ in~\autoref{eq:basic_eberhardt_extension}, and $|W^*|$ indicates element-wise absolute values of $W^*$. Entries of $S_0$ is 1 if the equivalent entry in $S$ is zero, and 0 otherwise.
-\end{column}
-\begin{column}{0.5\textwidth}
-Limit PK edges to edges from PK KOs onto PK/TF KOs
-\begin{table}[ht]
-\caption{\textbf{PK edges matching KOs.} Separated for high and low quality datasets. }
-\begin{tabularx}{\textwidth}{@{}rYYY@{}}
-    \toprule
-     & \pbox{5em}{Fielder+Fasalo\\+YeastKID} & BioGRID & possible \\
-    \midrule
-    PK$\rightarrow$TF & 231 & 642 & 38,304 \\
-    PK$\rightarrow$PK & 339 & 718 & 20,592 \\
-    sum & 570 & 1360 & 58,896 \\
-    \bottomrule
-\end{tabularx}
-\end{table}
-\footnotesize
-Fiedler~et~al.~\cite{Fiedler2009PK}
-\label{sec:fiedler_data}
-Yeast~KID~\cite{yeastkid}
-\label{sec:yeastkid}
-Fasolo~et~al.~\cite{Fasolo2011}
-\label{sec:fasolo}
-BioGRID~\cite{BioGRID}
-Name conversion: Tiger~et~al.~\cite{Tiger2012} and Saccharomyces Genome Database~\cite{yeastgenome}
-\normalsize
-\end{column}
-\end{columns}
-\end{frame}
 

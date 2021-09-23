@@ -38,6 +38,8 @@
 \end{columns}
 \end{frame}
 
+\input{theory/hill.tex}
+
 \begin{frame}{GeneNetWeaver - Defining gene regulation}
 \begin{columns}
 \begin{column}{0.5\textwidth}
@@ -50,14 +52,14 @@ Based on Marbach~et~al.~\cite{Marbach2010}, Dassow~et~al.~\cite{GeneNetWeaverMod
 \begin{align}
 \label{eq:gnw_f.a}
 f_i(\boldsymbol{p}) &=
-\sum_{s=1}^{2^N} \alpha_s P\{\sigma_s | \boldsymbol{p} \}
+\sum_{s=1}^{2^N} \alpha_s P\{S = s | \boldsymbol{p} \}
 \\
 \label{eq:gnw_f.b}
 \alpha_s &=
 \alpha_0' + \sum_{m \in \sigma_s} \alpha_m'
 \\
 \label{eq:gnw_f.c}
-P\{\sigma_s | \boldsymbol{p} \} &=
+P\{S = s | \boldsymbol{p} \} &=
 \prod_{m \in \sigma_s} P\{\beta_m=1|\boldsymbol{p}\} \cdot \prod_{m \notin \sigma_s} \left( P\{\beta_m=0|\boldsymbol{p}\} \right)
 \\
 \label{eq:gnw_f.d}
@@ -74,11 +76,13 @@ $\beta_m$ = module $m$ under activating binding conditions
 \label{eq:gnw_f.e}
 \mu_m &=
 \begin{cases}
-  \frac{\prod_{j \in A_m} \chi_j}{\prod_{j \in A_m \vee R_m} 1 + \chi_j},
-  & \text{if}\ m \in C \\
+  \frac{\prod_{j \in A_m} \chi_j}{\prod_{j \in A_m \cup R_m} 1 + \chi_j},
+  & \text{if}\ m \notin C \\
   \frac{\prod_{j \in A_m} \chi_j}{1 + \prod_{j \in A_m} \chi_j},
-  & \text{if}\ m \notin C \wedge \forall j \in A_m \\
-  \frac{\prod_{j \in A_m} \chi_j}{1 + \prod_{j \in A_m} \chi_j + \prod_{j \in A_m \vee R_m} \chi_j},
+  & \begin{aligned}
+      &\text{if}\ m \in C \\ &\wedge R_m = \emptyset
+  \end{aligned} \\
+  \frac{\prod_{j \in A_m} \chi_j}{1 + \prod_{j \in A_m} \chi_j + \prod_{j \in A_m \cup R_m} \chi_j},
   & \text{otherwise}
 \end{cases}
 \\

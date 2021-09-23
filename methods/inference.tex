@@ -17,11 +17,11 @@ Minimizing a loss function
 \mathcal{L}_B &=
 \sum_{j=1}^N \sum_{i=1}^N
 \left(b_{ij} - b_{ij}^{(\text{LLC})}\right)^2
-+ \lambda_T \sum_{j \in \text{TF}} \sum_{i=1}^N |w_{ij}| + \lambda_P \sum_{j \in \text{PK}} \sum_{i=1}^{N_T + N_P} |w_{ij}|
++ \lambda_T \sum_{j \in \text{TF}} \sum_{i=1}^N |w_{ij}| + \lambda_\text{KP} \sum_{j \in \text{KP}} \sum_{i=1}^{N_\text{TF} + N_\text{KP}} |w_{ij}|
 \label{eq:loss_B}
 \\
 \mathcal{L}_{\boldsymbol{e}} &=
-\sum_{i=1}^N e_i^2 + \lambda_T \sum_{j \in \text{TF}} \sum_{i=1}^N |w_{ij}| + \lambda_P \sum_{j \in \text{PK}} \sum_{i=1}^{N_T + N_P} |w_{ij}|
+\sum_{i=1}^N e_i^2 + \lambda_\text{TF} \sum_{j \in \text{TF}} \sum_{i=1}^N |w_{ij}| + \lambda_\text{KP} \sum_{j \in \text{KP}} \sum_{i=1}^{N_\text{TF} + N_\text{KP}} |w_{ij}|
 \label{eq:loss_e}
 \end{align}
 \end{subequations}
