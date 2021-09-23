@@ -1,0 +1,52 @@
+
+% center titles
+
+\setbeamertemplate{title}{
+  \centering
+  \linespread{1.0}%
+  \inserttitle%
+  \par%
+  \vspace*{0.5em}
+}
+\setbeamertemplate{subtitle}{
+  \centering
+  \insertsubtitle%
+  \par%
+  \vspace*{0.5em}
+}
+
+
+% fill out fields
+
+\subtitle{Regulatory pathway inference using gene expression from knockout studies}
+\title[Regulatory Pathway Inference]{Master's Thesis Defense}
+\author[Christian Degnbol Madsen]{
+\centering
+Christian Degnbol Madsen (s134801@student.dtu.dk)}
+\date[August 29, 2019]{
+\centering
+Master's Thesis in Bioinformatics and Systems Biology \\
+August 29, 2019}
+
+% define supervisors
+\institute[] {
+\begin{tabularx}{\textwidth}{YY}
+Christopher Workman & Jotun Hein \\
+\parbox{7cm}{\linespread{0.5}\selectfont\centering Department of Biotechnology\\and\phantom{g}Biomedicine} & Department of Statistics \\
+Technical University of Denmark & University of Oxford
+\end{tabularx}
+}
+
+% add DTU logo
+\titlegraphic{\hfill\includegraphics[width=0.8cm]{titlepage/fig/DTU_reg_RGB.pdf}}
+
+\begin{frame}
+\maketitle
+
+% add DTU Health Tech float
+\begin{tikzpicture}[overlay, remember picture]
+\node[above right=0.25cm and .8cm of current page.south west] {\includegraphics[width=4cm]{titlepage/fig/DTU_health_tech.pdf}};
+\end{tikzpicture}
+
+\end{frame}
+

@@ -1,0 +1,22 @@
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{gensymb}
+
+\sisetup{per-mode=fraction}
+% molar unit is added
+\DeclareSIUnit\molar{M}
+
+\DeclareMathOperator{\cov}{\text{cov}}
+\DeclareMathOperator{\E}{\text{E}}
+\DeclareMathOperator{\sign}{sgn}
+
+% transpose version of T
+\newcommand{\trans}{\intercal}
+
+% environment to write descriptions of variables
+\newenvironment{conditions}
+  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}={}$} l}}
+  {\end{tabular}\par\vspace{\belowdisplayskip}}

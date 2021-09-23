@@ -1,0 +1,44 @@
+\begin{frame}{Convergence model}
+\label{sec:convergence_model}
+
+% A convergence model was tested, where, instead of formulas describing a system at equilibrium, the system's nonlinear dynamics can be formulated and simulated until approximate convergence. It allows the model to have large amounts of nonlinearity but increases calculation costs significantly.
+
+% A machine learning model was formulated to mimic gene regulation~(\autoref{eq:convergence_model}). It was designed for pseudo-simulation of a wildtype expression converging to the observed RNA expression levels for mutants. The equations described here applies iterative calculation of protein kinase activity for signal cascades, where after $k_{\max}$ iterations the protein kinase activities~$\boldsymbol{a}_P(t,k)$ are used for calculations of transcription factor activities~$\boldsymbol{a}_T(t)$, which are used for calculating predicted gene expression levels~$\boldsymbol{x}(t)$. The loss function $\mathcal{L}_C$ is then formulated as the sum of squared errors of the gene expression prediction $\boldsymbol{x}(t=t_{\max})$ and the measured gene expression levels $y$. Lastly, a L1-regularization is applied on the trainable parameters of the model.
+
+\begin{subequations}
+\label{eq:convergence_model}
+\begin{align}
+\boldsymbol{a}_P (t=0,k=0) &= \boldsymbol{c}_P
+\quad,\quad
+\boldsymbol{x}(t=0) = \boldsymbol{0}
+\\
+\boldsymbol{a}_P (t>0,k=0) &= \boldsymbol{a}_P (t-1,k=k_{\max})
+\\
+\boldsymbol{a}_P (t>0,k>0) &=
+U_P \tanh \left(W_{PP} \boldsymbol{a}_P(t,k-1) + M_P \boldsymbol{x}(t-1) \right) + \boldsymbol{c}_P
+\\
+\boldsymbol{a}_T (t) &=
+U_T \tanh \left(W_{PT} \boldsymbol{a}_P(t,k=k_{\max}) + M_T \boldsymbol{x}(t-1) \right) + \boldsymbol{c}_T
+\\
+\boldsymbol{x}(t) &= \tanh(W_{TX} \boldsymbol{a}_T(t))
+\\
+\mathcal{L}_C &= \left(\boldsymbol{x}(t=t_{\max}) - \boldsymbol{y}\right)^2
++ \lambda \left(\sum_{j=1}^{N_P}\sum_{i=1}^{N_P}|w_{ij}^{(PP)}| + \sum_{j=1}^{N_P}\sum_{i=1}^{N_T}|w_{ij}^{(PT)}| + \sum_{j=1}^{N_T}\sum_{i=1}^{N}|w_{ij}^{(TX)}| \right)
+\end{align}
+\end{subequations}
+\begin{conditions}
+t & time step \\
+k & PK cascade step \\
+\boldsymbol{x}(t), \boldsymbol{y} & predicted and measured gene expression \\
+\boldsymbol{a}_P(t,k), \boldsymbol{a}_T(t) & activity relative to WT for PK, and TF \\
+U_P, U_T & mask knocked out PK, and TF \\
+\boldsymbol{c}_P, \boldsymbol{c}_T & intervention for PK, and TF \\
+M_P, M_T & map gene to product \\
+W_{PP}, W_{PT}, W_{TX} & trainable weights
+\end{conditions}
+% Here, $t$, and $k$ refers to discrete timesteps of gene production and iteration of PK cascade, respectively. $\boldsymbol{a}_P(t,k)$, and $\boldsymbol{a}_T(t,k)$ are activities of protein kinases relative to wildtype. $U_P$, and $U_T$ are masking matrices, removing values of knocked out genes, similar to $U_k$ from~\autoref{sec:eberhardt}. $\boldsymbol{c}_P$ and $\boldsymbol{c}_T$ are vectors of zeros except for indices of knockouts where they are arbitrarily set to -1 to indicate fully reduced activity. Since $\tanh$ is used, all values will be in range $[-1,1]$. $M_P$, and $M_T$ are masking arrays with ones mapping gene indices to their respective protein product indices. $W_{PP}$, $W_{PT}$, and $W_{TX}$ are trainable weight parameters for PK$\rightarrow$PK, PK$\rightarrow$TF, and TF$\rightarrow$gene interactions. $N_P$ is the number of PKs, $N_T$ the number TFs, and $N$ the total count of all genes measured, including TFs, and PKs.
+
+% This model has high computational cost, the formulas are not biologically intuitive, and the model can be criticized for the expectation that convergence is assumed to be reached within a small finite number of iterations. It would be possible to design a model where $\boldsymbol{x}$ is not reset for each gradient descent step, and to allow time $t$ to increase through the entirety of training, however this is beyond what has been tested here.
+
+% Convergence models were initially tested, both with SGD~(Stochastic Gradient Descent), Adam gradient descent, an evolutionary algorithm of learning parameters. A concern was whether the training would be too costly to run. It was found that it was not too costly when testing with Theano or PyTorch, but that error convergence was inadequate for the data in~\autoref{sec:yeast_data}, but perfect for small testing datasets. The equilibrium model is simpler and creates better intuition so the convergence model is not documented in~\autoref{sec:analysis}.
+\end{frame}

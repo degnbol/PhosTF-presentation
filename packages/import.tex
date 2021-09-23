@@ -1,0 +1,135 @@
+% loaded by beamer
+% \usepackage[dvipsnames,table,xcdraw]{xcolor}
+\usetheme[numbering=fraction]{metropolis}
+\usecolortheme{beaver}
+\setbeamercolor{background canvas}{bg=white}
+% If you have more than one page of references, you want to tell beamer
+% to put the continuation section label from the second slide onwards
+\setbeamertemplate{frametitle continuation}[from second]
+\setbeamertemplate{footline}{\begin{beamercolorbox}[wd=\textwidth,sep=3ex]{footline}\usebeamerfont{page number in head/foot}%
+    \usebeamertemplate*{frame footer}
+    \hfill%
+    \textcolor{gray}{\insertsection}\space    
+    \usebeamertemplate*{frame numbering}
+  \end{beamercolorbox}%
+}
+
+% text encoding
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+
+% Greek letters in text
+\usepackage{textgreek}
+
+% quotations
+\usepackage{fvextra} % to avoid warning in the next package
+\usepackage{csquotes}
+
+
+\input{packages/math.tex}
+
+
+\usepackage{float} % better positioning of images
+\usepackage{graphicx}
+\usepackage[font={small,it}]{caption}
+\usepackage{subcaption}
+% to wrap text around figure so it can be displayed next to text
+\usepackage{wrapfig}
+\usepackage{sidecap}
+
+
+% add figure list
+\graphicspath{{./fig/}}
+\usepackage{listings}
+
+
+\usepackage{tabularx}
+% define Y column type that is X with centering
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+% creates a type R to specify right adjustment instead of left
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\usepackage{wrapfig}
+\usepackage{booktabs}
+% make it possible to make tables span more than one page
+\usepackage{ltxtable}
+% add boxes functionality to force line break in table cell
+\usepackage{pbox}
+
+% make a good looking tilde
+\newcommand{\realtilde}{\raisebox{0.5ex}{\texttildelow}}
+
+
+% appendix
+% \usepackage[toc,page]{appendix}
+% appendix is not defined implicitly
+% \newcommand*{\Appendixautorefname}{Appendix}
+
+
+% makes sure figures and tables stay in their section
+\usepackage[section]{placeins}
+
+% justification is raggedright (i.e. left aligned)
+% singlelinecheck=off means that the justification setting is used even when the caption is only a single line long. 
+% if singlelinecheck=on, then caption is always centered when the caption is only one line.
+\captionsetup[subfigure]{singlelinecheck=off,justification=raggedright}
+
+% % if you want to add numbering on parapraphs
+% \usepackage{titlesec}
+% % \setcounter{secnumdepth}{4}
+% \titleformat{\paragraph}
+% {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+% \titlespacing*{\paragraph}
+% {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\usepackage{array} % don't know what is used for
+
+% nomenclature
+% \usepackage{nomencl}
+
+% bibliography. Maybe use bibtex instead of biber as backend
+\usepackage[backend=biber,sorting=none,style=numeric]{biblatex}
+\AtEveryBibitem{%
+  \clearfield{issn} % Remove issn
+  \clearfield{isbn} % Remove issn
+  \clearfield{doi} % Remove doi
+
+  \ifentrytype{misc}{}{% Remove url except for @misc
+    \clearfield{url}
+  }
+}
+\addbibresource{references.bib}
+\input{packages/unescape_bibliography.tex}
+% make bibliography entries smaller
+\renewcommand\bibfont{\tiny}
+% replace weird icon with numbering
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+
+% header
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+% paragraphs of text start with no indent
+\setlength{\parindent}{0pt}
+% paragraphs of text start with a little skip from last text
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+\input{packages/minted.tex}
+% hyperref uses xcolor 
+\usepackage{hyperref}
+\hypersetup{
+  linkcolor  = violet,
+  citecolor  = YellowOrange,
+  urlcolor   = Aquamarine,
+  colorlinks = true,
+}
+% alt to hyperref's autoref
+\usepackage{cleveref}
+
+% insert image in title page or other difficult place
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+

@@ -1,0 +1,21 @@
+\begin{frame}<0>{Inference helped by evolution}
+\label{sec:evolution}
+% The one you were supposed to have used is "Improving gene network inference by comparing expression time-series across species, developmental stages or tissues" by Guillaume Bourque and David Sankoff from Canada.
+Interspecies data
+\begin{itemize}
+    \item protein interactions
+    \item sequence data~\cite{KEGG}
+% Interspecies data and other data sources can be included in the effort of protein interaction and gene regulation inference. Protein interaction data from other species can be used on the expectation that if a protein interaction exists in one species, the orthologous proteins are likely to interact in a different species. Genetic and amino acid sequence data can also be exploited by studying the genetic or amino acid similarities to that of another species, and basing expectations of similarity in protein interaction properties on similarity observed in the orthologous proteins' sequences. Gene and amino acid sequences can be obtained from the KEGG GENES database~\cite{KEGG}.
+\end{itemize}
+Metabolic networks by Kashima~et~al.~\cite{Kashima2009}
+\begin{itemize}
+    \item Incomplete protein interactions ($\text{A}^{(k)}$)
+    \item interspecies protein similarity ($\text{W}^{(k,l)}, k \ne l$)
+    \item intraspecies gene expression similarity ($\text{W}^{(k,l)}, k = l$)
+\end{itemize}
+% Inference of metabolic networks has been studied, where the metabolic networks were treated as a graph for each species~\cite{Kashima2009}. Nodes are enzymes and edges are undirected, representing enzyme reactions in a metabolic pathway.
+% Incomplete adjacency matrices $\text{A}^{(k)}$ were obtained for each species $k$, where values indicate presence, absence, or unknown status of enzyme interactions. Sequence similarities for all pairs of proteins were used for calculation of protein similarity scores as symmetrical positive matrices $\text{W}^{(k,l)}$ comparing species $k$ and $l$, where $k\ne l$. Gene expression profiles from DNA microarray hybridization measurements were used for intraspecies similarity matrices $\text{W}^{(k,l)}$, where $k=l$. 
+% The idea is to find pairs of orthologous enzymes in different species where their presence or absence of interaction is known for one species but not for the other, and then score the interaction accordingly for the species with incomplete edge information. This is done with $\Tilde{\text{W}}^{(k,l)} = \text{W}^{(k,l)} \otimes \text{W}^{(k,l)}$, where $\otimes$ is the Kronecker product. $\Tilde{\text{W}}^{(k,l)}$ holds the product of each combination of elements of $\text{W}^{(k,l)}$, thereby scoring each enzyme interactions based on how likely it is that the two enzymes involved are orthologous.
+% Edge scoring matrices were then inferred by minimizing a loss function that depends on each~$\Tilde{\text{W}}^{(k,l)}$, and~$\text{A}^{(k)}$. Naturally, edges are only inferred for incomplete entries in the adjacency matrices.
+% Sequence similarity data could similarly be applied in combination with knockout data for more comprehensive graph inference for signal transduction networks.
+\end{frame}

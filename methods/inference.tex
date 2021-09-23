@@ -1,0 +1,32 @@
+\begin{frame}{Equlibrium model - inference}
+\label{sec:equilibrium_inference}
+
+% The obvious way to implement the equations described in \autoref{eq:second_equilibrium_final} in order to infer graph edges will be by applying the algorithm of Eberhardt~et~al., which gives us $B$, and with \autoref{eq:second_equilibrium_final.f} solve for $W$. This cannot be done analytically but is implemented as a gradient descent method where the difference between $B$ and the right hand side of its definition in \autoref{eq:second_equilibrium_final.f} is minimized~(\autoref{eq:loss_B}).
+% This approach is referred to as the $B$-method. If there is no covariance matrices for $\boldsymbol{x}_k$ available, $T_{\boldsymbol{x}_k}$ will have to be found using \autoref{eq:t_regress}, which only describes single intervention experiments.
+
+Minimizing a loss function
+
+% Another approach that allows for the inclusion of multiple interventions in an experiment is to minimize~$\boldsymbol{e}$ which is also an attempt at having the least amount of latent variables in the system.
+% This approach is referred to as the $\boldsymbol{e}$-minimization method.
+% It works by describing the systems of equations from the model in a symbolic math or neural network library in Python. The libraries help by constructing functions for gradients $\dv{\mathcal{L}}{w_{ij}}$, where $\mathcal{L}$ is the loss function and $w_{ij}$ a parameter in $W$. We then minimize the gradient using Adam gradient descent until perceived convergence~\cite{adam}.
+% The graph will be sparse which is enforced through L1-regularization. The loss minimized for the $\boldsymbol{e}$-method and $B$-method are:
+
+\begin{subequations}
+\label{eq:loss}
+\begin{align}
+\mathcal{L}_B &=
+\sum_{j=1}^N \sum_{i=1}^N
+\left(b_{ij} - b_{ij}^{(\text{LLC})}\right)^2
++ \lambda_T \sum_{j \in \text{TF}} \sum_{i=1}^N |w_{ij}| + \lambda_P \sum_{j \in \text{PK}} \sum_{i=1}^{N_T + N_P} |w_{ij}|
+\label{eq:loss_B}
+\\
+\mathcal{L}_{\boldsymbol{e}} &=
+\sum_{i=1}^N e_i^2 + \lambda_T \sum_{j \in \text{TF}} \sum_{i=1}^N |w_{ij}| + \lambda_P \sum_{j \in \text{PK}} \sum_{i=1}^{N_T + N_P} |w_{ij}|
+\label{eq:loss_e}
+\end{align}
+\end{subequations}
+
+% Here, $\lambda_T$ and $\lambda_P$ are regularization hyperparameters for $W I_T$ and $W I_P$, which means they are chosen to achieve a desired level of sparsity in each of those parts of the weight matrix $W$. They are not necessarily chosen as two different values. $b_{ij}^{(\text{LLC})}$ are values of $B_{\text{LLC}}$ found using LLC. $b_{ij}$ are elements of $B$ which is a function of the trainable parameters in $W$ as described in~\autoref{eq:second_equilibrium_final.f}.
+
+
+\end{frame}

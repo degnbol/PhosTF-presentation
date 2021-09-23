@@ -1,0 +1,36 @@
+\begin{frame}{Graphs}
+\label{sec:graph}
+Signal transduction network
+\begin{itemize}
+% graph representation
+    \item $\mathcal{G} = \left< \mathcal{V}, \mathcal{E} \right>$
+% A signal transduction network in a cell can be represented as a graph $\mathcal{G} = \left< \mathcal{V}, \mathcal{E} \right>$, defined as a set of vertices $\mathcal{V}$ and edges $\mathcal{E}$, where each can be assigned attributes, which often are a single scalar. Typically, an edge connects two vertices (nodes) in a graph and can be either undirected or directed, giving it a source and target node. In a hypergraph an edge can connect more than two nodes, which can be useful for metabolic networks where an edge can represent a reaction, for which there can be multiple input and output metabolites represented as the vertices connected to the edge.
+% Edges in a graph representing a protein interaction network can represent the physical binding of proteins or binding of proteins to promotors of genes while nodes represent proteins and genes. Edge attributes can represent regulation strength from TFs to genes, while the node attribute can represent gene product concentration. Genes and their protein products can also be represented as a single node. Separate gene and protein representations are useful if it is not assumed to be known which proteins are coded by which genes. When gene and protein product is a single node ambiguity as to whether an edge is regulating the gene~(transcriptional regulation) or the protein~(protein-protein interaction), can be avoided either with an explicit edge attribute signifying its type of interaction, or by basing the type of interaction on the source node of the edge. The latter can be done if a protein is either strictly classified as a transcription regulator or as a protein regulator. Genes and proteins as separate or combined node representations has both been used in this project. A gene and its protein product were separate in~\autoref{sec:convergence_model}, but otherwise considered a single node.
+    \item adjacency matrix
+% A Graph can be represented as an adjacency matrix where element $i,j$ is the edge from node $j$ to node $i$. The matrix can be symmetrical, which is used to represent an undirected graph where each element represents the connection between two nodes, without influence from choice in $j$ and $i$. Examples of matrices that can be used as a adjacency matrix representation of an undirected graph are covariance, correlation, and partial correlation matrices.
+
+% If the values are restricted to the Boolean case, for instance ones and zeros, it is used for indication of the presence and absence of an edge. Edges with values -1, 0, and 1 can be used to indicate repression, no effect, and activation, respectively. Real value numbers can encode the strength of activation or repression as well. Positive real value numbers can also be used to indicate weighted edges, for instance representing some concept of attraction forces.
+\end{itemize}
+DAG
+\begin{itemize}
+    \item paths can be followed to completion
+% Directed Acyclic Graphs (DAGs) are a well studied type of graph, used in fields such as machine learning. When a graph is acyclic and directed there exists no path from a node back to itself, that follows the direction of edges. For this reason it is possible to follow any path to completion. Machine learning networks, such as a feedforward network, will be DAGs with a natural progression layer by layer without infinite loops occurring. This makes it possible to define gradients fully describing how each parameter of a model has influence on the value of network outputs in the last layer of the network.
+    \item gene regulation is cyclic
+% A biological network modelling transcription and translation relies heavily on feedback loops through the transcription and translation of proteins that regulate other iterations of transcription and translation themselves.
+% The cycles complicates many aspects of studying the graph, such as describing conditional independence among the nodes~\cite{Tillman2014}.
+\end{itemize}
+Network inference
+% node inference
+% Inferring attributes for the vertices of a biological network can be difficult since attributes such as protein or mRNA concentration generally vary a lot depending on cell cycle and environmental factors. Vertex attributes of interest can be the production level or potential production level of a compound for which we are trying to optimize production.
+% edge inference
+% Inferring the edges of a biological network is an attempt to understand which protein-protein and protein-DNA interactions are taking place, which should be more static than vertex attributes and is what is usually the focus of biological network inference.
+% Wanting to find the edges in the network is to say that we are interested in causal connections. As opposed to typical machine learning training of prediction networks we are not interested in finding a nonlinear function mapping from an input to an output as well as possible with a black-box method, but instead to use biological data to shape the causal edges in a network. Predictive performance can however be a secondary objective.
+\begin{itemize}
+    \item Likelihood based
+% Graph learning has been explored using methods maximizing likelihood. Functions are described for the probability of a set of graph edges given observed attributes of the network, and the optimal graph is selected. There are many benefits to a likelihood based approach to edge inference, where the model will describe the basis for inferences and the confidence in them, compared to for instance a "black box" machine learning approach.
+% There are also issues with the complexity of likelihood approaches, where graphs with different edges can have equal likelihood of fitting a given dataset, edges might not indicate causality, the amount of data required for a convergent solution grows exponentially with the number of parameters to infer, and heuristics are usually applied to find suboptimal solutions as discussed by Yeang~\cite{Yeang2004}. Yeang goes on to describe and test a model for graph inference where edges are inferred to be present or absent, and if present, inferred to have positive or negative effects of target nodes. The edge strength is used as a p-value to evaluate certainty of predictions. The model is based on log likelihood ratios for hypothesis testing on graph parameters. Knockout data are applied, and the model constrained by protein-protein interaction data and protein-DNA interactions.
+\cite{Yeang2004}
+% We will combine similar data here, and also use the absolute sizes of predicted edge weights as a score for our belief in the presence in an edge in the graph.
+\end{itemize}
+\end{frame}
+

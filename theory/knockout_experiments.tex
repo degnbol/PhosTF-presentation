@@ -1,0 +1,29 @@
+Mutant RNA measurements
+\begin{itemize}
+    \item Gene deletions reveal indirect insight
+% indirect insight
+    % Gene deletion, or knockouts, can reveal insight into gene regulation even through RNA expression measurements are not a direct assay for protein-DNA or protein-protein interactions.
+% figure
+    % If the gene expression levels are observed relative to wildtype we can observe how a gene's expression is affected by the presence or absence of a regulator~(\autoref{fig:gene_deletion}). The direct regulation effects of transcription factors are more straightforward than the indirect effects of a protein kinase. Both edges cannot be inferred from any single knockout experiment even for this simple regulation example. By combining the observation in both an experiment with PK deleted and another with the TF deleted the signs of both edges can be determined, where +1 symbolizes activation and -1 repression. In this manner we can infer edges based on gene expression levels observed to be significantly up- or downregulated compared to wildtype in each of these four patters. The example here is simplified to not include any other regulators which can complicate the edge inference, e.g. if there is another regulation pathway that works as a backup for transcription of the regulated gene, so a robust inference method cannot be basing inference on individual regulation paths in isolation.
+    
+    \item Vital genes
+% A protein chosen to be knocked out might be vital to the functioning of the cell, making it impossible to have any mutant cells to observe. When this is the case a researcher can apply a conditional knockout where the gene can be down-regulated in a time-dependent manner so the measurements can be gathered at a specific time after inducing the knockout and before the death of all cells.
+
+% genes where the mutant is not visibly different than wildtype due to low expression of the gene under the tested conditions
+% \textbf{Low wildtype expression at tested conditions}
+
+% There can be issues with genes expressed at low levels in the wildtype under the experimental conditions. If the expression is already low for the wildtype it can be difficult to tell the level apart in a knockout mutant given the noise of microarray measurements. For this reason it has been argued~\cite{ChuaPNAS2006} that overexpression of transcription factors is better than knockouts for transcription factors that might not be expressed at the tested environmental conditions. According to their tests overexpression is good enough to produce noticeable changes even for some transcription factors that would normally not be active under the tested environmental conditions.
+% A counterpoint can be made with Savageau’s rule of demand~(\autoref{sec:demand_rule}).
+
+    \item Savageau's rule of demand~\cite{Shinar2006}
+\label{sec:demand_rule}
+% We consider Savageau’s rule of demand which states that high demand genes are generally induced, and low demand genes repressed under typical conditions. Another way of phrasing it is that genes are bound by their regulators at most times. The rule is established empirically as well as from the evolutionary intuition that it creates the highest selection pressure against unfavorable mutations~\cite{Shinar2006}. If it was the opposite case, where genes were generally not bound by their regulators under typical conditions, a mutation of a regulator could have a less noticeable effect. 
+\begin{itemize}
+    \item KOs are noticeable
+% If Savageau's rule of demand holds, a transcription factor will most likely not be expressed at a near undetectable level under typical conditions, so we would expect a knockout of said TF to have a noticeable effect. In the case of overexpression experiments the expression levels will be noticeably different from wildtype if the transcription is not already saturating the target gene promotor. That will typically not be the case for activating TFs where there would be a 2 to 4 fold increase in expression, but in the case of repressors the promotor can be close to saturated and the effect of TF overexpression can be harder to detect.
+
+% If Savageau's rule of demand does \textit{not} hold, so the promotor of a gene is more often bound by a TF under atypical conditions, it will be harder to detect deviation from wildtype expression levels when the TF is under- or overexpressed. TFs responding to stress and alternative carbon sources and their regulons appear to often violate Savageau’s demand rule so their regulation could be missed if not studied under the appropriate conditions.
+\end{itemize}
+\end{itemize}
+
+

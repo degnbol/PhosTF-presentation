@@ -1,0 +1,38 @@
+\subsection{Modelling gene expression with differential equations}
+\begin{frame}{Modelling gene expression with differential equations}
+% Transcription and translation kinetics are often modelled using differential equations~\cite{Chen99}. We can model the dynamic as~\autoref{eq:Chen99}, if we assume the process of transcription and translation takes a negligible amount of time, so the effect of regulation becomes instantly apparent in the rates of molecule production.
+Chen et al.~\cite{Chen99}
+\begin{subequations}
+\label{eq:Chen99}
+\begin{align}
+\dv{\boldsymbol{r}}{t} &=
+f(\boldsymbol{p}) - \Lambda_\text{RNA} \boldsymbol{r}
+\\
+\dv{\boldsymbol{p}}{t} &=
+M \boldsymbol{r} - \Lambda_\text{Prot} \boldsymbol{p}
+\end{align}
+\end{subequations}
+% Here, $\boldsymbol{r}$ is a vector of mRNA concentrations $r_i$ for each gene $i$, $\boldsymbol{p}$ is similarly a vector of protein concentrations for each gene $i$. $\Lambda_\text{RNA}$ and $\Lambda_\text{Prot}$ are diagonal matrices holding decay rates for each mRNA or protein, $M$ is a matrix with values for linear rates of protein production from the relevant coding mRNA, and $f$ is some function for how mRNA rates are influenced by each of the protein concentrations. Chen~et~al. argues for the application of using $f(\boldsymbol{p}) = C \boldsymbol{p}$ with a Taylor approximation and defines the solution to the ordinary linear system of differential equations. 
+
+% Differential models describing time-dependent kinetics of transcription and translation regulation can be readily applied to time series data. It can be done by assuming that the intervals between measurements are short enough that the differential can be approximated with the differences between measurements at each time step, however real-time measurements are collected at a lower rate than the time scale of biological interaction.
+
+% Differential equations has been used for modelling gene regulation with multiple transcription factors with both linear and nonlinear gene regulation, for instance by Anderson~et~al.~\cite{Anderson2009}, who modeled transcription factor concentrations as Gaussian Processes which are stochastic processes, purely defined by a mean and covariance term~(\autoref{eq:gaussian_process}).
+Gaussian Processes~\cite{Anderson2009}
+\begin{subequations}
+\label{eq:gaussian_process}
+\begin{align}
+\dv{\boldsymbol{r}}{t} &=
+\boldsymbol{r}_0 + C \boldsymbol{p} - \Lambda_\text{RNA} \boldsymbol{r}
+\\
+p_i &= f_i(t) =
+\mathcal{GP}\left(0, \exp(-\frac{(t-t')^2}{l_i^2})\right)
+\end{align}
+\end{subequations}
+\begin{itemize}
+% Here, $\boldsymbol{r}_0$ is a vector with basal transcriptional concentrations for each gene, $p_i$ is the $i$-th element of the protein concentration vector $\boldsymbol{p}$ which describes the concentrations of transcription factors as a Gaussian Process $\mathcal{GP}$ with mean 0 and covariance as an exponential function. $l_i$ is a hyperparameter of the model, which was chosen to be 0.1 for one example of simulation. Modelling the transcription factors as a Gaussian Process leaves out regulatory effects onto transcription factors, so the model was further extended to describe a cascade of transcription factors, each regulating the gene of the next transcription factor in the cascade. The models were not extended to protein kinases. 
+    \item \textcolor{darkgray!50!gray}{models for time series gene expression $\rightarrow$ GP parameters}
+% The models are in this case used for inferring the parameters defining the underlying Gaussian Processes for the transcription factor concentrations, that were giving rise to the observed gene transcription levels. It assumes adequate amounts of time series data for the gene transcripts, and does not directly infer which transcription factors regulate which genes, but rather assumes it is known.
+    \item \textcolor{darkgray!50!gray}{intentions of generalization, using TF concentration $\rightarrow$ TF interactions}
+% If the model could be generalized to describing any combination of transcription factors and designed to utilize TF concentrations, it might be possible to infer which transcription factor interactions are present. 
+\end{itemize}
+\end{frame}

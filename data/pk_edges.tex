@@ -1,0 +1,57 @@
+\begin{frame}{Protein-protein interactions}
+\begin{columns}
+\begin{column}{0.35\textwidth}
+% Multiple datasets were found in an effort to have useful prior knowledge about known and probable PK$\rightarrow$PK and PK$\rightarrow$TF edges.
+
+Fiedler~et~al.~\cite{Fiedler2009PK}
+\label{sec:fiedler_data}
+
+% Interaction data between proteins are gathered from Fiedler et al.~\cite{Fiedler2009PK}. The protein-protein interactions are from kinases and phosphatases interacting with other kinases, phosphatases and TFs. Fielder et al. collected a table of phosphorylation and dephosphorylation through manual curation of the literature. An Epistatic Miniarray Profile~(E-MAP) of 100,000 genetic interactions were then generated providing scored interactions.
+
+
+
+% The scored data includes 537 interactions more for phosphate regulator partners that share a regulated substrate. 304 are pairs where each protein is a kinases or kinase regulator, 65 are pairs where each are phosphatases or phosphatase regulators, and 168 where it is a kinase and a phosphatase, or their regulator, sharing an interaction.
+
+% All scored interactions are used as true interactions which is a total of $166 + 37 + 40 + 9 = 252$ scored interactions and $536 + 113 = 649$ unscored.
+
+% The scored proteins and interactions are not distinct from the unscored ones. There are 63 unique proteins overlapping between scored and unscored datasets, and 206 unique interactions overlapping.
+
+
+Yeast~KID~\cite{yeastkid}
+\label{sec:yeastkid}
+
+% 517 high confidence protein kinase interactions were collected from Yeast KID~\cite{yeastkid}. The table of interactions was found on \url{http://www.moseslab.csb.utoronto.ca/KID/} by searching for all interactions with p-value below 0.05 which is indicated on the page to correspond to a score above 4.52. The table can also be found as supplementary material to the publication which is without p-value cutoff. 74 of the PKs in the Yeast KID dataset overlap with the PKs in the knockout dataset~(\autoref{sec:yeast_data}).
+
+
+Fasolo~et~al.~\cite{Fasolo2011}
+\label{sec:fasolo}
+
+% 1031 directed protein kinase interactions from 84 protein kinases were collected from the work of Fasolo~et~al.~\cite{Fasolo2011}. The proteins were given with popular and standard naming and was converted to systematic names using the conversion table from Tiger~et~al.~\cite{Tiger2012} as well as nomenclature obtained from the Saccharomyces Genome Database~\cite{yeastgenome}.
+Name conversion: Tiger~et~al.~\cite{Tiger2012} and Saccharomyces Genome Database~\cite{yeastgenome}
+
+BioGRID~\cite{BioGRID}
+
+% Potential protein kinase interactions were collected from BioGRID~\cite{BioGRID}. Interactions were found from BioGRID's download page for latest release of kinome project interactions (\url{https://downloads.thebiogrid.org/BioGRID/Latest-Release/}). The table has a column describing if the interaction is physical or genetic, which was used to remove genetic interactions. The interactions does not have a described direction so all interactions were copied, reversed, reduced to unique interactions and then filtered so the source of each interaction is a protein kinase. This means that the interactions could be present but that it might be directed incorrectly so the dataset will be used for contrasting the other datasets where edges identified are assumed to be significantly more correct. By only using the 144 protein kinases that are knocked out in~\autoref{sec:yeast_data}, we get 1321 interactions. 
+\end{column}
+
+\begin{column}{0.65\textwidth}
+\begin{table}[ht]
+\caption{\textbf{(Un)scored (de)phosphorylations.} Fiedler et al. "direct" = protein performs (de)phosphorylation, "regulation" = protein regulates (de)phosphorylation through other kinase. Scored and unscored are not distinct. }
+\begin{tabularx}{\textwidth}{@{}RYYcYY@{}}
+    \toprule
+     & \multicolumn{2}{c}{phosphorylation} & \phantom{aa} & \multicolumn{2}{c}{dephosphorylation} \\
+    \cmidrule{2-3} \cmidrule{5-6}
+     & direct & regulation && direct & regulation \\
+    \midrule
+    \textit{unscored}\phantom{...........} \\
+    proteins & 79 & 34 && 26 & 9 \\
+    interactions & 536 & 130 && 113 & 43 \\
+    \textit{scored}\phantom{...............} \\
+    proteins & 46 & 20 && 17 & 4 \\
+    interactions & 166 & 37 && 40 & 9 \\
+    \bottomrule
+\end{tabularx}
+\end{table}
+\end{column}
+\end{columns}
+\end{frame}

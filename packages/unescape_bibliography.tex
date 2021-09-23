@@ -1,0 +1,23 @@
+% import after adding bibliography in main in order to unescape _ and ~ in urls
+\DeclareSourcemap{
+\maps{
+% Replaces '{\_}', '{_}' or '\_' with just '_'
+    \map{
+        \step[fieldsource=url,
+            match=\regexp{\{\\\_\}|\{\_\}|\\\_},replace=\regexp{\_}]
+        }
+    \map{
+        \step[fieldsource=doi,
+            match=\regexp{\{\\\_\}|\{\_\}|\\\_},replace=\regexp{\_}]
+        }
+% Replaces '{'$\sim$'}', '$\sim$' or '{~}' with just '~'
+    \map{ 
+        \step[fieldsource=url,
+            match=\regexp{\{\$\\sim\$\}|\{\~\}|\$\\sim\$},replace=\regexp{\~}]
+        }
+    \map{ 
+        \step[fieldsource=doi,
+            match=\regexp{\{\$\\sim\$\}|\{\~\}|\$\\sim\$},replace=\regexp{\~}]
+        }
+    }
+}

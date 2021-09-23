@@ -1,0 +1,30 @@
+\subsection{Performance evaluation}
+
+% Evaluating if there is an edge in a graph or not using a model's prediction scores is a Boolean classification problem. A positive case is the presence of an edge and a negative case is the absence. If the model's predictions are natural numbers and not Boolean themselves, we will have to describe some way of classifying an edge as the positive or negative case based on the natural number scores. The most straightforward approach is using a simple threshold, and take scores higher than the threshold to indicate presence of an edge. If the predicted edge scores can be both negative and positive, describing repression and activation, then an absolute value can be taken to make it a Boolean classification. Otherwise, there will be 3 classes; no edge, activator edge, and repressor edge. In that case a Boolean classification of edges will be classifying edges as present and positive versus all other edge options, and a separate classification evaluating if an edge is present and negative versus all other possibilities. 
+
+\subsubsection{Threshold independent evaluation}
+
+% Choosing a threshold for Boolean classification can have strong effects on the perceived quality of the classification. If the prediction scores are p-values we may choose a 95\% confidence level for the threshold or one corrected for multiple testing issues, but if the prediction scores are on any other arbitrary scale, the choice in threshold will be arbitrary.
+% The model can be evaluated without choosing a threshold by studying its counts, or rates, of True Positives~(TP), False Positives~(FP), True Negatives~(TN), and False Negatives~(FN). This is typically done with a ROC-curve~(Receiver Operating Characteristic) where TPR~(TP Rate) is plotted against FPR~(FP Rate) for any choice in threshold~(\autoref{eq:TPR_FPR}).
+
+\begin{subequations}
+\label{eq:TPR_FPR}
+\begin{align}
+\label{eq:TPR}
+TPR &= \frac{TP}{P} = \frac{TP}{TP + FN}
+\\
+FPR &= \frac{FP}{N} = \frac{FP}{FP + TN}
+\\
+\label{eq:precision}
+PPV &= \frac{TP}{TP + FP}
+\end{align}
+\end{subequations}
+
+% The resulting curve will go from (0,0) where the threshold is at maximum, so nothing is classified as a positive case, to (1,1) where everything is classified as a positive case. The plot will show the balance between making correct judgments of scores versus incorrect judgments where a random classified will create an approximately straight line from (0,0) to (1,1), and a perfect classifier will go from (0,0) through (0,1) to (1,1).
+% The overall performance can be evaluated with the scalar metric Area Under the Curve~(AUC). The value will be 0.5 for random classification, 1 for perfect classification and -1 for perfect inverse classification.
+
+% Another way of visualizing the classification is with precision~(PPV, \autoref{eq:precision}) and recall~(TPR, \autoref{eq:TPR}), also known as specificity and sensitivity. This will show the fraction of predicted positives that are classified correctly versus the fraction of all the positives that are discovered.
+
+
+
+

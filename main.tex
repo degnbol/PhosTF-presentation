@@ -1,0 +1,40 @@
+\PassOptionsToPackage{naturalnames}{hyperref}
+\PassOptionsToPackage{dvipsnames,table,xcdraw}{xcolor}
+\documentclass[8pt]{beamer}
+\geometry{paperwidth=160mm,paperheight=90mm}
+\input{packages/import.tex}
+
+\definecolor{tf}{RGB}{119, 135, 68}
+\definecolor{gene}{RGB}{155, 143, 76}
+\definecolor{pk}{RGB}{102, 80, 127}
+
+\makeatletter
+\def\pk_#1{\textcolor{pk}{
+\text{PK}_{#1}\@ifnextchar[{\pkbrac}{\relax}}}
+\def\pkbrac[#1]{#1}
+\def\tf_#1{\textcolor{tf}{
+\text{TF}_{#1}\@ifnextchar[{\tfbrac}{\relax}}}
+\def\tfbrac[#1]{#1}
+\def\gene_#1{\textcolor{gene}{
+\text{gene}_{#1}\@ifnextchar[{\genebrac}{\relax}}}
+\def\genebrac[#1]{#1}
+\makeatother
+
+
+\begin{document}
+\input{titlepage/titlepage.tex}
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+\input{introduction/introduction.tex}
+\input{theory/theory.tex}
+\input{methods/methods.tex}
+\input{data/data.tex}
+\input{analysis/analysis.tex}
+\input{discussion/discussion.tex}
+\input{conclusion/conclusion.tex}
+\appendix
+\begin{frame}[allowframebreaks]{References}
+\printbibliography[heading=none]
+\end{frame}
+\end{document}
