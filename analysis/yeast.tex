@@ -56,22 +56,22 @@
 % \end{columns}
 % \end{frame}
 
-\begin{frame}{Protein kinase interaction inference on yeast data}
+\begin{frame}{Inference performance}
 \begin{columns}
-\begin{column}{0.5\textwidth}
-Poor classification 
+\begin{column}{0.2\textwidth}
+Simulated data 
+Yeast data
 \begin{itemize}
     \item No negative examples
     \item Few datapoints
-    \item Model is too simple
 \end{itemize}
 \end{column}
 
-\begin{column}{0.5\textwidth}
+\begin{column}{0.8\textwidth}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.85\textwidth]{analysis/fig/minimum_performance.pdf}
-    \caption{\textbf{Minimum performance.} \\ Positive = edge in dataset, negative = edge not in dataset. \\ known = Fiedler+Fasolo+YeastKID. }
+    \includegraphics[width=0.85\textwidth]{analysis/fig/Fig3.pdf}
+    \caption{\textbf{Performance on simulated and yeast data.} \\  }
     \label{fig:minimum_performance}
 \end{figure}
 % Since the datasets for evaluation of performance only provides examples of presence of edges~(positive examples), we cannot directly evaluate balance between accuracy, specificity, etc. for the model. By using all possible edges not in a dataset of known edges we get a minimum performance where many of the datapoints used as negatives are in fact positives~(\autoref{fig:minimum_performance}). The Fiedler dataset with PK$\rightarrow$TF edges is included, since it was the single dataset with best performance. We see that PK$\rightarrow$PK edges from any dataset has no noticeably higher scoring than edges not in the dataset. PK$\rightarrow$TF edges from the datasets with known edges has a clear but small overrepresentation as larger scoring edges compared to other possible edges.

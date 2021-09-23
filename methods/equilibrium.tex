@@ -6,7 +6,7 @@
 \begin{column}{0.5\textwidth}
 
 LLC works for TF\\
-extend to PK with second node attribute
+extend to KP with second node attribute
 
 % The LLC model~(\autoref{sec:eberhardt}) attempts to describe causal effects from node value to another through unknown edges. The natural application to gene regulation would be to have each node represent both a gene and its protein product, node values $\boldsymbol{x}$ would represent gene expression levels, and edges would represent protein regulation. The node values can be absolute or relative protein concentrations, in our case log fold-change mRNA measurements~(\autoref{sec:yeast_data}).
 
@@ -23,19 +23,19 @@ extend to PK with second node attribute
 \begin{subequations}
 \label{eq:basic_eberhardt_extension}
 \begin{align}
-x_i(t) &= \sum_{j \in T} w_{ij} a_j(t-1) + e_i^{(x)}
+x_i(t) &= \sum_{j \in \text{TF}} w_{ij} a_j(t-1) + e_i^{(x)}
 \\
-y_i(t) &= \sum_{j \in P} w_{ij} a_j(t-1) + e_i^{(y)}
+y_i(t) &= \sum_{j \in \text{KP}} w_{ij} a_j(t-1) + e_i^{(y)}
 \\
-\boldsymbol{x}(t) &= W I_T \boldsymbol{a}(t-1) + \boldsymbol{e}_x
+\boldsymbol{x}(t) &= W I_\text{TF} \boldsymbol{a}(t-1) + \boldsymbol{e}_x
 \\
-\boldsymbol{y}(t) &= W I_P \boldsymbol{a}(t-1) + \boldsymbol{e}_y
+\boldsymbol{y}(t) &= W I_\text{KP} \boldsymbol{a}(t-1) + \boldsymbol{e}_y
 \end{align}
 \end{subequations}
 Node attributes:
 \begin{conditions}
 \boldsymbol{x}(t) & observed in data \\
-\boldsymbol{y}(t) & hidden (PK regulated activity) \\
+\boldsymbol{y}(t) & hidden (KP regulated activity) \\
 \boldsymbol{a}(t) & effective
 \end{conditions}
 % Here, $x_i(t)$ is the $i$-th directly observed node value, $y_i(t)$ the activity node attribute, each at discrete timestep $t$. $w_{ij}$ is the edge weight from protein $j$ to $i$, and $a_j(t-1)$ the effective amount of the $j$-th protein at time $t-1$. $e_i^{(x)}$ and $e_i^{(y)}$ are the error terms capturing latent, overlooked variables, and noise. The set $T$ and $P$ are the node indexes for transcription factors and protein kinases, so in matrix/vector notation we can combine all edges in a matrix $W$ where $I_T$ and $I_P$ are diagonal matrices where $I_T$ has 1s in the diagonal corresponding to indexes for TF nodes in $\boldsymbol{x}$, and similarly for $I_P$ in regard to PK node indexes. We sort the proteins with TFs first, followed by PKs~(\autoref{fig:W}).
@@ -46,7 +46,7 @@ Node attributes:
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{methods/fig/W.pdf}
-    \caption{\textbf{\textit{W}.} Column = edge source, row = target. \\ \textcolor{darkgray}{Dark gray} = 0. Dimensions = $N \times (N_T + N_P)$. }
+    \caption{\textbf{\textit{W}.} Column = edge source, row = target. \\ \textcolor{darkgray}{Dark gray} = 0. Dimensions = $N \times (N_\text{TF} + N_\text{KP})$. }
     \label{fig:W}
 \end{figure}
 \end{column}
@@ -85,22 +85,22 @@ Can be shown to converge for $t\rightarrow\infty$
 \label{eq:second_equilibrium_final}
 \begin{align}
 \boldsymbol{a} &= 
-    \left(WI_P\boldsymbol{a} + \boldsymbol{e}_y\right) + \boldsymbol{x}
+    \left(WI_\text{KP}\boldsymbol{a} + \boldsymbol{e}_y\right) + \boldsymbol{x}
 \\
-\left(I-WI_P\right) \boldsymbol{a} &=
+\left(I-WI_\text{KP}\right) \boldsymbol{a} &=
     \boldsymbol{e}_y + \boldsymbol{x}
 \\
 \boldsymbol{a} &=
-    \left(I-WI_P\right)^{-1} \left(\boldsymbol{e}_y + \boldsymbol{x}\right)
+    \left(I-WI_\text{KP}\right)^{-1} \left(\boldsymbol{e}_y + \boldsymbol{x}\right)
 \\
 \boldsymbol{x} &=
-    WI_T \left(I-WI_P\right)^{-1} \left(\boldsymbol{e}_y + \boldsymbol{x}\right) + \boldsymbol{e}_x
+    WI_\text{TF} \left(I-WI_\text{KP}\right)^{-1} \left(\boldsymbol{e}_y + \boldsymbol{x}\right) + \boldsymbol{e}_x
 \\
-&= WI_T \left(I-WI_P\right)^{-1} \boldsymbol{x} + \boldsymbol{e}
+&= WI_\text{TF} \left(I-WI_\text{KP}\right)^{-1} \boldsymbol{x} + \boldsymbol{e}
 \\
 \label{eq:second_equilibrium_final.f}
 &= B\boldsymbol{x} + \boldsymbol{e}
-\enspace,\enspace B = WI_T \left(I-WI_P\right)^{-1}
+\enspace,\enspace B = WI_\text{TF} \left(I-WI_\text{KP}\right)^{-1}
 \end{align}
 \end{subequations}
 

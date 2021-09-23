@@ -7,9 +7,9 @@
 % We demonstrate, that it is possible to simulate non-linear and complex gene regulation involving protein kinases, and infer the underlying interactions, in spite of the much larger space of parameters defining the simulations~(\autoref{sec:dream_results}). It is also demonstrated that performance can be improved significantly with a novel loss function~(\autoref{sec:cascade_loss}).
     \item Future work
     \begin{itemize}
-        \item PK$\rightarrow$TF vs PK$\rightarrow$PK preference
+        \item KP$\rightarrow$TF vs KP$\rightarrow$KP preference
         \begin{itemize}
-            \item Outgoing edges usually sum to <1 for mediating PK
+            \item Outgoing edges usually sum to <1 for mediating KP
 % When an effect from a protein kinase knockout is observed across a node value, the equilibrium method can choose to infer an edge to the most obvious transcription factor or infer an edge to another protein kinase that are found to regulate the same transcription factors~(\autoref{sec:toy}).
 % If we use L1-regularization for PK edges the latter is only favored in the case where the weights from the other PK sum to more than 1.
 % Testing the performance improvements possible with the alternative loss function described in~\autoref{sec:cascade_loss} would be interesting for simulated data on larger networks. It could be a great way to improve performance on simulated data, however, it is unclear how much this would help for experimental data.
